@@ -1,25 +1,126 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+let db = {
+  apples: { unit: "kg", price: 2.3 },
+  watermelons: { unit: null, price: 5.0 },
+  lemons: { unit: null, price: 0.7 }
+};
+
+function getUnit(type) {
+  return db[type].unit != null ? " " + db[type].unit + " of " : " ";
+}
+
+function getSubTotal(article) {
+  return (db[article.type].price * article.quantity).toLocaleString(
+    undefined,
+    { style: "currency", currency: "EUR" }
+  );
+}
+
+class CartContent extends React.Component {
+  render() {
+    return (
+      <div class="cart-content">
+        <ul>
+          {this.props.cart.map((article) => (
+            <li>
+              {article.quantity +
+                getUnit(article.type) +
+                article.type}
+              {" - "}
+              {getSubTotal(article)}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+function CartTotal(props) {
+  return (
+    <div class="cart-total">
+      {"Total: "}
+      {props.total.toLocaleString(undefined, {
+        style: "currency",
+        currency: "EUR"
+      })}
+    </div>
+  );
+}
+
+class PaymentInformations extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fields: [
+        { id: "card_number", label: "Card number" },
+        { id: "expiration_date", label: "MM/AA" },
+        { id: "cvv", label: "CVV" },
+        { id: "cardholder_name", label: "Cardholder name" }
+      ]
+    };
+  }
+
+  render() {
+    this.state.fields.map((field) => console.log(field.id));
+    return (
+      <div className="payment-informations">
+        {this.state.fields.map((field) => (
+          <div id={field.id}>
+            <input
+              type="text"
+              id={field.id + "_input"}
+              required
+            ></input>
+            <label for={field.id + "_input"}>{field.label}</label>
+          </div>
+        ))}
+      </div>
+    );
+  }
+}
+
+class CheckoutCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cart: [
+        { type: "apples", quantity: 3 },
+        { type: "watermelons", quantity: 1 },
+        { type: "lemons", quantity: 6 }
+      ]
+    };
+  }
+
+  render() {
+    let total = 0.0;
+    this.state.cart.map(
+      (article) => (total += db[article.type].price * article.quantity)
+    );
+    return (
+      <div className="card">
+        <div className="card-body">
+          <h1>CHECKOUT</h1>
+          <div className="v-spacer"></div>
+          <div className="cart">
+            <CartContent cart={this.state.cart} />
+            <CartTotal total={total} />
+          </div>
+          <div className="v-spacer"></div>
+          <PaymentInformations />
+        </div>
+        <div className="card-bottom">
+          <div className="fab">BUY</div>
+        </div>
+      </div>
+    );
+  }
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CheckoutCard />
   );
 }
 
