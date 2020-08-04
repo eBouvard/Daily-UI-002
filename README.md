@@ -4,7 +4,9 @@ Design a credit card checkout form or page. Don't forget the important elements 
 
 ## Tech
 
-Made with HTML, CSS and React.js.
+Made with HTML, CSS and React.js.\
+Initial code made by `Create React App`.\
+For the sake of the demonstration, store and database are represented by simple mocks, but can easily be replaced with real API calls and/or libraries.
 
 ## Available Scripts
 
