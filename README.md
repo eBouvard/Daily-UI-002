@@ -2,7 +2,7 @@
 
 Design a credit card checkout form or page. Don't forget the important elements such as the numbers, dates, security numbers, etc.
 
-## Tech
+## Informations
 
 Made with HTML, CSS and React.js.\
 Initial code made by `Create React App`.\
@@ -31,5 +31,5 @@ https://codepen.io/ebouvard/pen/WNrqgao
 
 ## Credits
 
-Design by Matthieu Harreau.\
+Thanks to Matthieu Harreau for letting me use his design.\
 https://dribbble.com/shots/13811928-Daily-UI-002-Credit-Card-Checkout
