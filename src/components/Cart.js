@@ -1,14 +1,13 @@
 import React from 'react';
 import database from '../mock/db';
 
-const db = database.getData("test");
-
 function getUnit(type) {
-    return db[type].unit != null ? " " + db[type].unit + " of " : " ";
+    const element = database.getData(type);
+    return element.unit != null ? " " + element.unit + " of " : " ";
 }
 
 function getSubTotal(article) {
-    return (db[article.type].price * article.quantity).toLocaleString(
+    return (database.getData(article.type).price * article.quantity).toLocaleString(
         undefined,
         { style: "currency", currency: "EUR" }
     );
@@ -38,7 +37,7 @@ class CartTotal extends React.Component {
     render() {
         let total = 0.0;
         this.props.cart.map(
-            (article) => (total += db[article.type].price * article.quantity)
+            (article) => (total += database.getData(article.type).price * article.quantity)
         );
 
         return (

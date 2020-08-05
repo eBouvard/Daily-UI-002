@@ -1,34 +1,24 @@
-/*
-let db = [
-  {type:"apples", unit: "kg", price: 2.3 },
-  {type:"watermelons", unit: null, price: 5.0 },
-  {type:"lemons", unit: null, price: 0.7 }
-];
-*/
-let db = {
-    apples: {
+let db = [{
+        type: "apples",
         unit: "kg",
         price: 2.3
     },
-    watermelons: {
+    {
+        type: "watermelons",
         unit: null,
         price: 5.0
     },
-    lemons: {
+    {
+        type: "lemons",
         unit: null,
         price: 0.7
     }
-};
+];
 
 function getData(type) {
-    return db;
-}
-
-function addData(data) {
-
+    return db.find((element) => (element.type === type));
 }
 
 export default {
-    getData,
-    addData
+    getData
 };
